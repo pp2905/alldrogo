@@ -1,0 +1,1 @@
+ALTER TABLE auction ADD base_quantity INTEGER NOT NULL DEFAULT '0';
