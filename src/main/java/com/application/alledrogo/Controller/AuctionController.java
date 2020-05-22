@@ -76,6 +76,14 @@ public class AuctionController {
         return auctionService.getAuctionById(id);
     }
 
+    @GetMapping(
+            path = "/exchangeRate/{currency}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Double getExchangeRate(@PathVariable String currency) {
+        return auctionService.getExchangeCourse(currency);
+    }
+
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -127,13 +135,5 @@ public class AuctionController {
     )
     public void deleteAuction(@PathVariable("auctionId") int id) {
         auctionService.deleteAuction(id);
-    }
-
-    @GetMapping(path = "/test")
-    public List<Auction> test(@RequestParam("test") Optional<String> str, @RequestParam("string") Optional<Integer> aaa, @RequestParam("int") Optional<String> bbb) {
-        System.out.println(str.get());
-        System.out.println(aaa.get());
-        System.out.println(bbb.get());
-        return null;
     }
 }

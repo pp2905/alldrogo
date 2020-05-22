@@ -4,8 +4,13 @@ import com.application.alledrogo.Exception.NotAcceptableException;
 import com.application.alledrogo.Exception.NotFoundException;
 import com.application.alledrogo.Model.Auction;
 import com.application.alledrogo.Repository.AuctionRepository;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -100,6 +105,27 @@ public class AuctionService {
     public Auction getAuctionById(int id) {
         Optional<Auction> getAuction = auctionRepository.findById(id);
         return getAuction.orElseThrow(() -> new NotFoundException(String.format("Not found Category with id %s", id)));
+    }
+
+    @SneakyThrows
+    public Double getExchangeCourse(String currency) {
+        Double exchangeRate = 0.0;
+
+        if(!currency.equals("eur") && !currency.equals("usd")) {
+
+        } else if (currency.equals("eur") || currency.equals("usd")) {
+            final String url = "http://api.nbp.pl/api/exchangerates/rates/a/"+currency;
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.getBody());
+            JsonNode rates = root.path("rates");
+
+            exchangeRate = rates.get(0).path("mid").asDouble();
+        }
+
+        return exchangeRate;
     }
 
     public Auction addAuction(Auction auction) {
