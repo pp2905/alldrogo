@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
@@ -78,9 +79,25 @@ class SubCategoryServiceTest {
 
     @Test
     void updateSubCategoryById() {
+        int id = subCategory.getId();
+
+        given(subCategoryRepository.findById(id)).willReturn(Optional.ofNullable(subCategory));
+        given(subCategoryRepository.save(subCategory)).willReturn(subCategory);
+
+        subCategory.setName("testowy");
+        SubCategory expected = subCategoryService.updateSubCategoryById(subCategory);
+
+        assertThat(expected).isNotNull();
+        assertThat(expected).isEqualToComparingFieldByField(subCategory);
     }
 
     @Test
     void deleteSubCategoryById() {
+        int id = subCategory.getId();
+
+        given(subCategoryRepository.findById(id)).willReturn(Optional.ofNullable(subCategory));
+        subCategoryService.deleteSubCategoryById(id);
+
+        verify(subCategoryRepository).delete(subCategory);
     }
 }

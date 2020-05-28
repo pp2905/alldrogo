@@ -64,6 +64,6 @@ public class SubCategoryService {
     public void deleteSubCategoryById(int id) {
         //getSubCategoryById check if the subCategory exist in the database, if not throw NotFoundException (404 not found)
         SubCategory getSubCategory = getSubCategoryById(id);
-        subCategoryRepository.deleteById(id);
+        subCategoryRepository.delete(getSubCategory);
     }
 }
