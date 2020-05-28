@@ -1,6 +1,6 @@
-package com.application.alledrogo.Repository;
+package com.application.alledrogo.repository;
 
-import com.application.alledrogo.Model.Category;
+import com.application.alledrogo.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {

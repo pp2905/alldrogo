@@ -1,4 +1,4 @@
-package com.application.alledrogo.Exception;
+package com.application.alledrogo.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

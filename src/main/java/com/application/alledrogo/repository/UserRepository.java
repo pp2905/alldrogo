@@ -1,8 +1,7 @@
-package com.application.alledrogo.Repository;
+package com.application.alledrogo.repository;
 
-import com.application.alledrogo.Model.User;
+import com.application.alledrogo.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

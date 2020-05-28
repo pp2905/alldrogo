@@ -1,9 +1,9 @@
-package com.application.alledrogo.Service;
+package com.application.alledrogo.service;
 
-import com.application.alledrogo.Exception.NotAcceptableException;
-import com.application.alledrogo.Exception.NotFoundException;
-import com.application.alledrogo.Model.Auction;
-import com.application.alledrogo.Repository.AuctionRepository;
+import com.application.alledrogo.exception.NotAcceptableException;
+import com.application.alledrogo.exception.NotFoundException;
+import com.application.alledrogo.model.Auction;
+import com.application.alledrogo.repository.AuctionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;

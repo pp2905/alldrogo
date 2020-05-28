@@ -1,6 +1,5 @@
-package com.application.alledrogo.Model;
+package com.application.alledrogo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.application.alledrogo.Model;
+package com.application.alledrogo.model;
 
 import lombok.*;
 

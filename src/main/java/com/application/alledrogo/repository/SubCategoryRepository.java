@@ -1,6 +1,6 @@
-package com.application.alledrogo.Repository;
+package com.application.alledrogo.repository;
 
-import com.application.alledrogo.Model.SubCategory;
+import com.application.alledrogo.model.SubCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SubCategoryRepository extends JpaRepository<SubCategory, Integer> {

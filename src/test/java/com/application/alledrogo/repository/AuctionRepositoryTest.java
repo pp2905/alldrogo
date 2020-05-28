@@ -1,19 +1,17 @@
-package com.application.alledrogo.Repository;
+package com.application.alledrogo.repository;
 
-import com.application.alledrogo.Model.Auction;
-import com.application.alledrogo.Model.Category;
-import com.application.alledrogo.Model.SubCategory;
+import com.application.alledrogo.model.Auction;
+import com.application.alledrogo.model.Category;
+import com.application.alledrogo.model.SubCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest

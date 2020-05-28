@@ -1,7 +1,7 @@
-package com.application.alledrogo.Controller;
+package com.application.alledrogo.controller;
 
-import com.application.alledrogo.Model.SubCategory;
-import com.application.alledrogo.Service.SubCategoryService;
+import com.application.alledrogo.model.SubCategory;
+import com.application.alledrogo.service.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

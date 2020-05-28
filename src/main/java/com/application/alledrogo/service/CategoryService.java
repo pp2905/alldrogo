@@ -1,9 +1,9 @@
-package com.application.alledrogo.Service;
+package com.application.alledrogo.service;
 
-import com.application.alledrogo.Exception.NotAcceptableException;
-import com.application.alledrogo.Exception.NotFoundException;
-import com.application.alledrogo.Model.Category;
-import com.application.alledrogo.Repository.CategoryRepository;
+import com.application.alledrogo.exception.NotAcceptableException;
+import com.application.alledrogo.exception.NotFoundException;
+import com.application.alledrogo.model.Category;
+import com.application.alledrogo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

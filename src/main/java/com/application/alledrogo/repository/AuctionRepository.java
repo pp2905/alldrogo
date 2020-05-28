@@ -1,6 +1,6 @@
-package com.application.alledrogo.Repository;
+package com.application.alledrogo.repository;
 
-import com.application.alledrogo.Model.Auction;
+import com.application.alledrogo.model.Auction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,30 +1,23 @@
-package com.application.alledrogo.Service;
+package com.application.alledrogo.service;
 
-import com.application.alledrogo.Exception.NotAcceptableException;
-import com.application.alledrogo.Exception.NotFoundException;
-import com.application.alledrogo.Model.User;
-import com.application.alledrogo.Repository.UserRepository;
+import com.application.alledrogo.exception.NotAcceptableException;
+import com.application.alledrogo.exception.NotFoundException;
+import com.application.alledrogo.model.User;
+import com.application.alledrogo.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
 
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest

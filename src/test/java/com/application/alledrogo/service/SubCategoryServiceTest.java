@@ -1,8 +1,8 @@
-package com.application.alledrogo.Service;
+package com.application.alledrogo.service;
 
-import com.application.alledrogo.Model.Category;
-import com.application.alledrogo.Model.SubCategory;
-import com.application.alledrogo.Repository.SubCategoryRepository;
+import com.application.alledrogo.model.Category;
+import com.application.alledrogo.model.SubCategory;
+import com.application.alledrogo.repository.SubCategoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
