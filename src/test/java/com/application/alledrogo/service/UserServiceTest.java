@@ -17,7 +17,10 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
@@ -34,6 +37,7 @@ class UserServiceTest {
     @BeforeEach
     void setUp() {
         user = new User();
+        user.setId(1);
         user.setFirstName("Alex");
         user.setLastName("Texas");
         user.setEmail("alex@mail.com");
@@ -66,23 +70,39 @@ class UserServiceTest {
 
     @Test
     void shouldGetUserById() {
-        given(userRepository.findById(user.getId())).willReturn(Optional.of(user));
+        int id = user.getId();
+        given(userRepository.findById(id)).willReturn(Optional.of(user));
 
-        User found = userService.getUserById(user.getId());
+        User found = userService.getUserById(id);
 
         assertThat(found).isNotNull();
         assertThat(found).isEqualToComparingFieldByField(user);
     }
 
     @Test
-    void shouldGetUserByEmail() {
-        given(userRepository.findByEmail(user.getEmail())).willReturn(Optional.ofNullable(user));
+    void shouldThrowExceptionWhenNotFoundUserWithId() {
+        int id = user.getId();
+        User nullUser = null;
 
-        User found = userService.getUserByEmail(user.getEmail());
+        given(userRepository.findById(id)).willReturn(Optional.ofNullable(nullUser));
+
+        assertThrows(NotFoundException.class, () -> {
+            userService.getUserById(id);
+        });
+    }
+
+    @Test
+    void shouldGetUserByEmail() {
+        String email = user.getEmail();
+        given(userRepository.findByEmail(email)).willReturn(Optional.ofNullable(user));
+
+        User found = userService.getUserByEmail(email);
 
         assertThat(found).isNotNull();
         assertThat(found.getEmail())
-                .isEqualTo(user.getEmail());
+                .isEqualTo(email);
+
+        verify(userRepository).findByEmail(email);
     }
 
     @Test
@@ -101,8 +121,6 @@ class UserServiceTest {
     void shouldThrowExceptionWhenSaveUserWithNoRequiredData() {
         User emptyUser = new User();
 
-        given(userRepository.save(emptyUser)).willReturn(emptyUser);
-
         assertThrows(NotAcceptableException.class, () -> {
             userService.addUser(emptyUser);
         });
@@ -110,11 +128,26 @@ class UserServiceTest {
 
     @Test
     void shouldUpdateUserById() {
+        int id = user.getId();
+
+        given(userRepository.findById(id)).willReturn(Optional.ofNullable(user));
+        given(userRepository.save(user)).willReturn(user);
+
+        user.setFirstName("Testowy");
+        User expected = userService.updateUserById(user);
+
+        assertThat(expected).isNotNull();
+        assertThat(expected).isEqualToComparingFieldByField(user);
     }
 
     @Test
     void shouldDeleteUserById() {
+        int id = user.getId();
 
+        given(userRepository.findById(id)).willReturn(Optional.ofNullable(user));
+        userService.deleteUserById(id);
+
+        verify(userRepository).delete(user);
     }
 
     @Test
