@@ -2,6 +2,7 @@ package com.application.alledrogo.service;
 
 import com.application.alledrogo.exception.NotAcceptableException;
 import com.application.alledrogo.exception.NotFoundException;
+import com.application.alledrogo.model.Category;
 import com.application.alledrogo.model.SubCategory;
 import com.application.alledrogo.repository.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class SubCategoryService {
     }
     
     public SubCategory addSubCategory(SubCategory subCategory) {
-        if(subCategory.getName() == null || subCategory.getCategory() != null) {
+        if(subCategory.getName() == null ||  Optional.of(subCategory.getCategory()).isEmpty()) {
             throw new NotAcceptableException("Name and CategoryId should not be empty");
         }
 
@@ -46,7 +47,7 @@ public class SubCategoryService {
         //getSubCategoryById check if the subCategory exist in the database, if not throw NotFoundException (404 not found)
         SubCategory getSubCategory = getSubCategoryById(subCategory.getId());
 
-        if(subCategory.getCategory() == null) {
+        if(Optional.of(subCategory.getCategory()).isEmpty()) {
             subCategory.setCategory(getSubCategory.getCategory());
         }
 
