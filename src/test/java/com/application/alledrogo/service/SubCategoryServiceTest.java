@@ -78,21 +78,21 @@ class SubCategoryServiceTest {
     }
 
     @Test
-    void updateSubCategoryById() {
+    void shouldUpdateSubCategoryById() {
         int id = subCategory.getId();
 
         given(subCategoryRepository.findById(id)).willReturn(Optional.ofNullable(subCategory));
         given(subCategoryRepository.save(subCategory)).willReturn(subCategory);
 
         subCategory.setName("testowy");
-        SubCategory expected = subCategoryService.updateSubCategoryById(subCategory);
+        SubCategory expected = subCategoryService.updateSubCategory(subCategory);
 
         assertThat(expected).isNotNull();
         assertThat(expected).isEqualToComparingFieldByField(subCategory);
     }
 
     @Test
-    void deleteSubCategoryById() {
+    void shouldDeleteSubCategoryById() {
         int id = subCategory.getId();
 
         given(subCategoryRepository.findById(id)).willReturn(Optional.ofNullable(subCategory));

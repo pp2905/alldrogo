@@ -42,7 +42,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category updateCategoryById(Category category) {
+    public Category updateCategory(Category category) {
         //getCategoryById check if the Category exist in the database, if not throw NotFoundException (404 not found)
         Category getCategory = getCategoryById(category.getId());
 

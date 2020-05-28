@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 
 class CategoryServiceTest {
@@ -68,10 +69,26 @@ class CategoryServiceTest {
     }
 
     @Test
-    void updateCategoryById() {
+    void shouldUpdateCategoryById() {
+        int id = category.getId();
+
+        given(categoryRepository.findById(id)).willReturn(Optional.ofNullable(category));
+        given(categoryRepository.save(category)).willReturn(category);
+
+        category.setName("Testowy");
+        Category expected = categoryService.updateCategory(category);
+
+        assertThat(expected).isNotNull();
+        assertThat(expected).isEqualToComparingFieldByField(category);
     }
 
     @Test
-    void deleteCategoryById() {
+    void shouldDeleteCategoryById() {
+        int id = category.getId();
+
+        given(categoryRepository.findById(id)).willReturn(Optional.ofNullable(category));
+        categoryService.deleteCategoryById(id);
+
+        verify(categoryRepository).delete(category);
     }
 }

@@ -132,7 +132,7 @@ class UserServiceTest {
         given(userRepository.save(user)).willReturn(user);
 
         user.setFirstName("Testowy");
-        User expected = userService.updateUserById(user);
+        User expected = userService.updateUser(user);
 
         assertThat(expected).isNotNull();
         assertThat(expected).isEqualToComparingFieldByField(user);

@@ -51,7 +51,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUserById(User user) {
+    public User updateUser(User user) {
         //getUserById check if the user exist in the database, if not throw NotFoundException (404 not found)
         User getUser = getUserById(user.getId());
 

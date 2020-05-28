@@ -42,7 +42,7 @@ public class SubCategoryService {
         return subCategoryRepository.save(subCategory);
     }
     
-    public SubCategory updateSubCategoryById(SubCategory subCategory) {
+    public SubCategory updateSubCategory(SubCategory subCategory) {
         //getSubCategoryById check if the subCategory exist in the database, if not throw NotFoundException (404 not found)
         SubCategory getSubCategory = getSubCategoryById(subCategory.getId());
 

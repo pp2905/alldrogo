@@ -58,7 +58,7 @@ public class UserController {
     )
     public User updateUserById(@PathVariable("userId") int id, @RequestBody User user) {
         user.setId(id);
-        return userService.updateUserById(user);
+        return userService.updateUser(user);
     }
 
     @DeleteMapping(

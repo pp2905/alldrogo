@@ -49,7 +49,7 @@ public class CategoryController {
     )
     public Category updateCategoryById(@PathVariable("categoryId") int categoryId, @RequestBody Category category) {
         category.setId(categoryId);
-        return categoryService.updateCategoryById(category);
+        return categoryService.updateCategory(category);
     }
 
     @DeleteMapping(

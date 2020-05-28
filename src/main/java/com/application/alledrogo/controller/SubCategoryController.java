@@ -49,7 +49,7 @@ public class SubCategoryController {
     )
     public SubCategory updateCategoryById(@PathVariable("subCategoryId") int id, @RequestBody SubCategory subCategory) {
         subCategory.setId(id);
-        return subCategoryService.updateSubCategoryById(subCategory);
+        return subCategoryService.updateSubCategory(subCategory);
     }
 
     @DeleteMapping(
