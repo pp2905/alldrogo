@@ -69,7 +69,7 @@ class CategoryServiceTest {
     }
 
     @Test
-    void shouldUpdateCategoryById() {
+    void shouldUpdateCategory() {
         int id = category.getId();
 
         given(categoryRepository.findById(id)).willReturn(Optional.ofNullable(category));

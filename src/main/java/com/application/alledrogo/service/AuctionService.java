@@ -56,9 +56,6 @@ public class AuctionService {
 
     public List<Auction> getUserAuctions(int ownerId) {
         List<Auction> getAuctions = auctionRepository.findAllByOwnerId(ownerId);
-        if(getAuctions.isEmpty()) {
-            throw new NotFoundException(String.format("Not found any Auctions with ownerId: %s", ownerId));
-        }
 
         return getAuctions;
     }

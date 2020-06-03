@@ -78,7 +78,7 @@ class SubCategoryServiceTest {
     }
 
     @Test
-    void shouldUpdateSubCategoryById() {
+    void shouldUpdateSubCategory() {
         int id = subCategory.getId();
 
         given(subCategoryRepository.findById(id)).willReturn(Optional.ofNullable(subCategory));

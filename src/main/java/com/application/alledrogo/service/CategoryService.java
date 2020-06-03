@@ -22,9 +22,6 @@ public class CategoryService {
 
     public List<Category> getAllCategories() {
         List<Category> getCategories = categoryRepository.findAll();
-        if(getCategories.isEmpty()) {
-            throw new NotFoundException("Not found any Category");
-        }
 
         return getCategories;
     }

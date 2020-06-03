@@ -125,7 +125,7 @@ class UserServiceTest {
     }
 
     @Test
-    void shouldUpdateUserById() {
+    void shouldUpdateUser() {
         int id = user.getId();
 
         given(userRepository.findById(id)).willReturn(Optional.ofNullable(user));

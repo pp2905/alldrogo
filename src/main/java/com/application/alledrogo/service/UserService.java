@@ -23,10 +23,6 @@ public class UserService {
     public List<User> getAllUsers() {
         List<User> getUsers = userRepository.findAll();
 
-        if(getUsers.isEmpty()) {
-            throw new NotFoundException("Not found any Users");
-        }
-
         return  getUsers;
     }
 

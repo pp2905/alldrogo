@@ -22,9 +22,6 @@ public class SubCategoryService {
 
     public List<SubCategory> getAllSubCategories() {
         List<SubCategory> getSubCategories = subCategoryRepository.findAll();
-        if(getSubCategories.isEmpty()) {
-            throw new NotFoundException("Not found any SubCategory");
-        }
 
         return getSubCategories;
     }
