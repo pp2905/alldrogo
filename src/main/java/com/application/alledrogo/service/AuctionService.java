@@ -148,42 +148,6 @@ public class AuctionService {
         //getAuctionById check if the Auction exist in the database, if not throw NotFoundException (404 not found)
         Auction getAuction = getAuctionById(auction.getId());
 
-        if(auction.getCategory() == null) {
-            auction.setCategory(getAuction.getCategory());
-        }
-
-        if(auction.getSubCategory() == null) {
-            auction.setSubCategory(getAuction.getSubCategory());
-        }
-
-        if(auction.getOwnerId() == 0) {
-            auction.setOwnerId(getAuction.getOwnerId());
-        }
-
-        if(auction.getTitle() == null) {
-            auction.setTitle(getAuction.getTitle());
-        }
-
-        if(auction.getDescription() == null) {
-            auction.setDescription(getAuction.getDescription());
-        }
-
-        if(auction.getPrice() == 0) {
-            auction.setPrice(getAuction.getPrice());
-        }
-
-        if(auction.getQuantity() == 0) {
-            auction.setQuantity(getAuction.getQuantity());
-        }
-
-        if(auction.getStartDate() == null) {
-            auction.setStartDate(getAuction.getStartDate());
-        }
-
-        if(auction.getEndDate() == null) {
-            auction.setEndDate(getAuction.getEndDate());
-        }
-
         return auctionRepository.save(auction);
     }
 
