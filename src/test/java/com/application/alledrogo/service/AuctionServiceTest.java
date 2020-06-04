@@ -108,10 +108,6 @@ class AuctionServiceTest {
     }
 
     @Test
-    void getFilteredAuction() {
-    }
-
-    @Test
     void shouldGetAuctionById() {
         int id = auction.getId();
 

@@ -17,8 +17,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
 class UserControllerTest {
@@ -40,41 +39,74 @@ class UserControllerTest {
     }
 
     @Test
-    void getAllUsers() throws Exception {
+    void shouldGetAllUsers() throws Exception {
         List<User> allUsers = Arrays.asList(user);
 
         given(userService.getAllUsers()).willReturn(allUsers);
 
-
-        mvc.perform(get("/api/users").contentType(
-                MediaType.APPLICATION_JSON))
+        mvc.perform(get("/api/users")
+                    .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].firstName", is(user.getFirstName())));
     }
 
     @Test
-    void getUserById() {
-//        given(userService.getUserById(user.getId())).willReturn(user);
-//
-//        mvc.perform(get("/api/users/{id}", user.getId()))
-//                .andExpect(status().isOk())
-//                .andExpect("$")
+    void shouldGetUserById() throws Exception {
+        given(userService.getUserById(user.getId())).willReturn(user);
+
+        mvc.perform(get("/api/users/{id}", user.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("lastName", is(user.getLastName())))
+                .andExpect(jsonPath("email", is(user.getEmail())));
     }
 
     @Test
-    void getUserByEmail() {
+    void shouldGetUserByEmail() throws Exception {
+        given(userService.getUserByEmail(user.getEmail())).willReturn(user);
+
+        mvc.perform(get("/api/users/email/{email}/", user.getEmail())
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("lastName", is(user.getLastName())))
+                .andExpect(jsonPath("email", is(user.getEmail())));
     }
 
     @Test
-    void addUser() {
+    void shouldAddUser() throws Exception {
+        given(userService.addUser(user)).willReturn(user);
+
+        mvc.perform(post("/api/users/")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{ \"firstName\": \"alex\", \"lastName\": \"Texas\", \"email\": \"alex@mail.com\" }")
+                    .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("lastName", is(user.getLastName())))
+                .andExpect(jsonPath("email", is(user.getEmail())));
     }
 
     @Test
-    void updateUserById() {
+    void shouldUpdateUserById() throws Exception {
+        given(userService.updateUser(user)).willReturn(user);
+
+        mvc.perform(put("/api/users/{userId}", user.getId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{ \"firstName\": \"alex\", \"lastName\": \"Texas\", \"email\": \"alex@mail.com\" }")
+                    .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("lastName", is(user.getLastName())))
+                .andExpect(jsonPath("email", is(user.getEmail())));
     }
 
     @Test
-    void deleteUserById() {
+    void shouldDeleteUserById() throws Exception {
+        mvc.perform(delete("/api/users/{userId}", user.getId()))
+                .andExpect(status().isOk());
     }
 }

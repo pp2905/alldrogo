@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping(
-            path = "email/{email}",
+            path = "email/{email}/",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public User getUserByEmail(@PathVariable("email") String email) {
