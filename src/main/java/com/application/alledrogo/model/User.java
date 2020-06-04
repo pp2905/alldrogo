@@ -3,6 +3,8 @@ package com.application.alledrogo.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -16,9 +18,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotNull
+    @NotBlank
     private String firstName;
+
+    @NotNull
+    @NotBlank
     private String lastName;
+
+    @NotNull
+    @NotBlank
     private String email;
+
     private LocalDate birthDate;
     private Long phoneNumber;
     private String street;

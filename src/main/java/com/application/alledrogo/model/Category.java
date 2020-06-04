@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +22,8 @@ public class Category {
     @GeneratedValue
     private int id;
 
+    @NotNull
+    @NotBlank
     private String name;
     private String description;
 }

@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +49,7 @@ class AuctionServiceTest {
         auction.setTitle("Auto");
         auction.setOwnerId(1);
         auction.setDescription("Desc");
-        auction.setPrice(10);
+        auction.setPrice(BigDecimal.valueOf(10));
         auction.setQuantity(1);
 
         auctionList.add(auction);

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -45,8 +46,8 @@ public class AuctionController {
             @RequestParam("subCategoryId") Optional<Integer> subCategoryId,
             @RequestParam("ownerId") Optional<Integer> id,
             @RequestParam("title") Optional<String> title,
-            @RequestParam("priceFrom") Optional<Double> priceFrom,
-            @RequestParam("priceTo") Optional<Double> priceTo
+            @RequestParam("priceFrom") Optional<BigDecimal> priceFrom,
+            @RequestParam("priceTo") Optional<BigDecimal> priceTo
     ) {
         LocalDateTime now = LocalDateTime.now();
         return auctionService.getFilteredAuction(categoryId, subCategoryId, id, title, priceFrom, priceTo, Optional.of(now), Optional.empty());
@@ -61,8 +62,8 @@ public class AuctionController {
             @RequestParam("subCategoryId") Optional<Integer> subCategoryId,
             @RequestParam("ownerId") Optional<Integer> id,
             @RequestParam("title") Optional<String> title,
-            @RequestParam("priceFrom") Optional<Double> priceFrom,
-            @RequestParam("priceTo") Optional<Double> priceTo
+            @RequestParam("priceFrom") Optional<BigDecimal> priceFrom,
+            @RequestParam("priceTo") Optional<BigDecimal> priceTo
     ) {
         LocalDateTime now = LocalDateTime.now();
         return auctionService.getFilteredAuction(categoryId, subCategoryId, id, title, priceFrom, priceTo, Optional.empty(), Optional.of(now));
