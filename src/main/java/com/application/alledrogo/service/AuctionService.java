@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +61,7 @@ public class AuctionService {
         return getAuctions;
     }
 
-    public List<Auction> getFilteredAuction(Optional<Integer> categoryId, Optional<Integer> subCategoryId, Optional<Integer> ownerId, Optional<String> title, Optional<Double> priceFrom, Optional<Double> priceTo, Optional<LocalDateTime> endDateFrom, Optional<LocalDateTime> endDateTo) {
+    public List<Auction> getFilteredAuction(Optional<Integer> categoryId, Optional<Integer> subCategoryId, Optional<Integer> ownerId, Optional<String> title, Optional<BigDecimal> priceFrom, Optional<BigDecimal> priceTo, Optional<LocalDateTime> endDateFrom, Optional<LocalDateTime> endDateTo) {
         //getAuctions check if the any auction exist in the database, if not throw NotFoundException (404 not found)
         List<Auction> filteredAuctions = getAllAuctions();
 
@@ -81,11 +82,11 @@ public class AuctionService {
         }
 
         if(priceFrom.isPresent()) {
-            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getPrice() >= priceFrom.get()).collect(Collectors.toList());
+            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getPrice().compareTo(priceFrom.get()) >= 0 ).collect(Collectors.toList());
         }
 
         if(priceTo.isPresent()) {
-            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getPrice() <= priceTo.get()).collect(Collectors.toList());
+            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getPrice().compareTo(priceTo.get()) <= 0 ).collect(Collectors.toList());
         }
 
         if(endDateFrom.isPresent()) {
@@ -126,7 +127,7 @@ public class AuctionService {
     }
 
     public Auction addAuction(Auction auction) {
-        if(auction.getCategory() == null || auction.getSubCategory() == null || auction.getOwnerId() == 0 || auction.getTitle() == null || auction.getDescription() == null ||  auction.getPrice() == 0 || auction.getQuantity() == 0) {
+        if(auction.getCategory() == null || auction.getSubCategory() == null || auction.getOwnerId() == 0 || auction.getTitle() == null || auction.getDescription() == null ||  auction.getPrice().equals(0) || auction.getQuantity() == 0) {
             throw new NotAcceptableException("Category, SubCategory, OwnerId, Title, Description, Price, Quantity should not be empty");
         }
 

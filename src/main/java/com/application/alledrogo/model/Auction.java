@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -27,7 +28,7 @@ public class Auction {
     private int ownerId;
     private String title;
     private String description;
-    private double price;
+    private BigDecimal price;
     private int baseQuantity;
     private int quantity;
     private LocalDateTime startDate;
