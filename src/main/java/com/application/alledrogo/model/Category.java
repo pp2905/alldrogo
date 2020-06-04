@@ -25,5 +25,8 @@ public class Category {
     @NotNull
     @NotBlank
     private String name;
+
+    @NotNull
+    @NotBlank
     private String description;
 }
