@@ -26,9 +26,6 @@ public class Auction {
     @OneToOne
     private Category category;
 
-    @OneToOne
-    private SubCategory subCategory;
-
     @NotNull
     @NotBlank
     private int ownerId;

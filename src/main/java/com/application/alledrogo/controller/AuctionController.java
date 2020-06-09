@@ -43,14 +43,13 @@ public class AuctionController {
     )
     public List<Auction> getActiveAuctions(
             @RequestParam("categoryId") Optional<Integer> categoryId,
-            @RequestParam("subCategoryId") Optional<Integer> subCategoryId,
             @RequestParam("ownerId") Optional<Integer> id,
             @RequestParam("title") Optional<String> title,
             @RequestParam("priceFrom") Optional<BigDecimal> priceFrom,
             @RequestParam("priceTo") Optional<BigDecimal> priceTo
     ) {
         LocalDateTime now = LocalDateTime.now();
-        return auctionService.getFilteredAuction(categoryId, subCategoryId, id, title, priceFrom, priceTo, Optional.of(now), Optional.empty());
+        return auctionService.getFilteredAuction(categoryId, id, title, priceFrom, priceTo, Optional.of(now), Optional.empty());
     }
 
     @GetMapping(
@@ -59,14 +58,13 @@ public class AuctionController {
     )
     public List<Auction> getEndedAuctions(
             @RequestParam("categoryId") Optional<Integer> categoryId,
-            @RequestParam("subCategoryId") Optional<Integer> subCategoryId,
             @RequestParam("ownerId") Optional<Integer> id,
             @RequestParam("title") Optional<String> title,
             @RequestParam("priceFrom") Optional<BigDecimal> priceFrom,
             @RequestParam("priceTo") Optional<BigDecimal> priceTo
     ) {
         LocalDateTime now = LocalDateTime.now();
-        return auctionService.getFilteredAuction(categoryId, subCategoryId, id, title, priceFrom, priceTo, Optional.empty(), Optional.of(now));
+        return auctionService.getFilteredAuction(categoryId, id, title, priceFrom, priceTo, Optional.empty(), Optional.of(now));
     }
 
     @GetMapping(

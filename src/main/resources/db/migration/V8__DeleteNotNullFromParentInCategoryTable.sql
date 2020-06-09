@@ -1,0 +1,1 @@
+alter table category alter column parent drop not null;

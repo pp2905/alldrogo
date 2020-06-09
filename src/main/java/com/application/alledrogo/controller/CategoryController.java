@@ -1,11 +1,14 @@
 package com.application.alledrogo.controller;
 
+import com.application.alledrogo.exception.NotFoundException;
 import com.application.alledrogo.model.Category;
 import com.application.alledrogo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +41,11 @@ public class CategoryController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Category addNewCategory(@RequestBody Category category) {
+    public Category addNewCategory(@Valid @RequestBody Category category, Errors errors) {
+        if(errors.hasErrors()) {
+            throw new NotFoundException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
+        }
+
         return categoryService.addCategory(category);
     }
 
@@ -47,7 +54,10 @@ public class CategoryController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "{categoryId}"
     )
-    public Category updateCategoryById(@PathVariable("categoryId") int categoryId, @RequestBody Category category) {
+    public Category updateCategoryById(@PathVariable("categoryId") int categoryId, @RequestBody Category category, Errors errors) {
+        if(errors.hasErrors()) {
+            throw new NotFoundException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
+        }
         category.setId(categoryId);
         return categoryService.updateCategory(category);
     }

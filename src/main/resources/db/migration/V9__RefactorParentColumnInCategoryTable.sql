@@ -1,0 +1,2 @@
+ALTER TABLE category DROP COLUMN parent;
+ALTER TABLE category add parent INTEGER REFERENCES category(id) ON DELETE CASCADE;

@@ -1,6 +1,5 @@
 package com.application.alledrogo.service;
 
-import com.application.alledrogo.exception.NotAcceptableException;
 import com.application.alledrogo.exception.NotFoundException;
 import com.application.alledrogo.model.Category;
 import com.application.alledrogo.repository.CategoryRepository;
@@ -32,8 +31,9 @@ public class CategoryService {
     }
 
     public Category addCategory(Category category) {
-        if(category.getName() == null) {
-            throw new NotAcceptableException("Name should not be empty");
+        if(category.getParentId() != null) {
+            Optional<Category> parent = categoryRepository.findById(category.getParentId());
+            category.setParent(parent.get());
         }
 
         return categoryRepository.save(category);

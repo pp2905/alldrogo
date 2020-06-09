@@ -46,31 +46,18 @@ public class AuctionService {
         return getAuctions;
     }
 
-    public List<Auction> getAuctionsBySubCategoryId(int subCategoryId) {
-        List<Auction> getAuctions = auctionRepository.findAllBySubCategoryId(subCategoryId);
-        if(getAuctions.isEmpty()) {
-            throw new NotFoundException(String.format("Not found any Auctions with subCategoryId: %s", subCategoryId));
-        }
-
-        return getAuctions;
-    }
-
     public List<Auction> getUserAuctions(int ownerId) {
         List<Auction> getAuctions = auctionRepository.findAllByOwnerId(ownerId);
 
         return getAuctions;
     }
 
-    public List<Auction> getFilteredAuction(Optional<Integer> categoryId, Optional<Integer> subCategoryId, Optional<Integer> ownerId, Optional<String> title, Optional<BigDecimal> priceFrom, Optional<BigDecimal> priceTo, Optional<LocalDateTime> endDateFrom, Optional<LocalDateTime> endDateTo) {
+    public List<Auction> getFilteredAuction(Optional<Integer> categoryId, Optional<Integer> ownerId, Optional<String> title, Optional<BigDecimal> priceFrom, Optional<BigDecimal> priceTo, Optional<LocalDateTime> endDateFrom, Optional<LocalDateTime> endDateTo) {
         //getAuctions check if the any auction exist in the database, if not throw NotFoundException (404 not found)
         List<Auction> filteredAuctions = getAllAuctions();
 
         if(categoryId.isPresent()) {
-            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getSubCategory().getId() == categoryId.get()).collect(Collectors.toList());
-        }
-
-        if(subCategoryId.isPresent()) {
-            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getSubCategory().getId() == subCategoryId.get()).collect(Collectors.toList());
+            filteredAuctions = filteredAuctions.stream().filter(auction -> auction.getCategory().getId() == categoryId.get()).collect(Collectors.toList());
         }
 
         if(ownerId.isPresent()) {
@@ -127,8 +114,8 @@ public class AuctionService {
     }
 
     public Auction addAuction(Auction auction) {
-        if(auction.getCategory() == null || auction.getSubCategory() == null || auction.getOwnerId() == 0 || auction.getTitle() == null || auction.getDescription() == null ||  auction.getPrice().equals(0) || auction.getQuantity() == 0) {
-            throw new NotAcceptableException("Category, SubCategory, OwnerId, Title, Description, Price, Quantity should not be empty");
+        if(auction.getCategory() == null || auction.getOwnerId() == 0 || auction.getTitle() == null || auction.getDescription() == null ||  auction.getPrice().equals(0) || auction.getQuantity() == 0) {
+            throw new NotAcceptableException("Category, OwnerId, Title, Description, Price, Quantity should not be empty");
         }
 
         LocalDateTime now = LocalDateTime.now();

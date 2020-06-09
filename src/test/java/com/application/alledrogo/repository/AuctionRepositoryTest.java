@@ -2,7 +2,6 @@ package com.application.alledrogo.repository;
 
 import com.application.alledrogo.model.Auction;
 import com.application.alledrogo.model.Category;
-import com.application.alledrogo.model.SubCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,9 +21,6 @@ class AuctionRepositoryTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
-
-    @Autowired
-    private SubCategoryRepository subCategoryRepository;
 
     Auction auction;
     Auction auction2;
@@ -65,30 +61,6 @@ class AuctionRepositoryTest {
         auctionRepository.saveAll(auctions);
 
         List<Auction> foundAuctions = auctionRepository.findAllByCategoryId(getCategory.getId());
-        assertThat(foundAuctions).containsOnly(auction);
-    }
-
-    @Test
-    void findAllBySubCategoryId() {
-        auction = new Auction();
-        auction2 = new Auction();
-
-        SubCategory subCategory = new SubCategory();
-        subCategory.setName("first");
-
-        SubCategory subCategory2 = new SubCategory();
-        subCategory2.setName("second");
-
-        SubCategory getSubCategory = subCategoryRepository.save(subCategory);
-        SubCategory getSubCategory2 = subCategoryRepository.save(subCategory2);
-
-        auction.setSubCategory(getSubCategory);
-        auction2.setSubCategory(getSubCategory2);
-
-        List<Auction> auctions = Arrays.asList(auction, auction2);
-        auctionRepository.saveAll(auctions);
-
-        List<Auction> foundAuctions = auctionRepository.findAllBySubCategoryId(subCategory.getId());
         assertThat(foundAuctions).containsOnly(auction);
     }
 }

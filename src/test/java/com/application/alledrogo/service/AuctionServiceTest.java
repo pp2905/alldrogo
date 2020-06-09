@@ -2,7 +2,6 @@ package com.application.alledrogo.service;
 
 import com.application.alledrogo.model.Auction;
 import com.application.alledrogo.model.Category;
-import com.application.alledrogo.model.SubCategory;
 import com.application.alledrogo.repository.AuctionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,17 +34,13 @@ class AuctionServiceTest {
 
     private Category category;
 
-    private SubCategory subCategory;
-
     @BeforeEach
     void setUp() {
         auction = new Auction();
         auctionList = new ArrayList<>();
         category = new Category();
-        subCategory = new SubCategory();
 
         auction.setCategory(category);
-        auction.setSubCategory(subCategory);
         auction.setTitle("Auto");
         auction.setOwnerId(1);
         auction.setDescription("Desc");
@@ -73,20 +68,6 @@ class AuctionServiceTest {
         given(auctionRepository.findAllByCategoryId(id)).willReturn(auctionList);
 
         List<Auction> expectedAuctions = auctionService.getAuctionsByCategoryId(id);
-
-        assertThat(expectedAuctions).isNotEmpty();
-        assertThat(expectedAuctions).hasSize(1);
-        assertThat(expectedAuctions).containsOnly(auction);
-        assertThat(expectedAuctions).isEqualTo(auctionList);
-    }
-
-    @Test
-    void shouldGetAuctionsBySubCategoryId() {
-        int id = subCategory.getId();
-
-        given(auctionRepository.findAllBySubCategoryId(id)).willReturn(auctionList);
-
-        List<Auction> expectedAuctions = auctionService.getAuctionsBySubCategoryId(id);
 
         assertThat(expectedAuctions).isNotEmpty();
         assertThat(expectedAuctions).hasSize(1);
