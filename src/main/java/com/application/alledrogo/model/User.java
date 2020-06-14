@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -20,14 +21,17 @@ public class User {
 
     @NotNull
     @NotBlank
+    @NotEmpty
     private String firstName;
 
     @NotNull
     @NotBlank
+    @NotEmpty
     private String lastName;
 
     @NotNull
     @NotBlank
+    @NotEmpty
     private String email;
 
     private LocalDate birthDate;

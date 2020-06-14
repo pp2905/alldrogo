@@ -28,7 +28,6 @@ public class Category {
     @NotNull
     @NotBlank
     @NotEmpty
-    @Size(message = "trururu")
     private String name;
 
     @NotNull
