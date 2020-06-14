@@ -114,10 +114,6 @@ public class AuctionService {
     }
 
     public Auction addAuction(Auction auction) {
-        if(auction.getCategory() == null || auction.getOwnerId() == 0 || auction.getTitle() == null || auction.getDescription() == null ||  auction.getPrice().equals(0) || auction.getQuantity() == 0) {
-            throw new NotAcceptableException("Category, OwnerId, Title, Description, Price, Quantity should not be empty");
-        }
-
         LocalDateTime now = LocalDateTime.now();
         auction.setStartDate(now);
         auction.setBaseQuantity(auction.getQuantity());

@@ -1,5 +1,6 @@
 package com.application.alledrogo.controller;
 
+import com.application.alledrogo.exception.NotAcceptableException;
 import com.application.alledrogo.exception.NotFoundException;
 import com.application.alledrogo.model.Category;
 import com.application.alledrogo.service.CategoryService;
@@ -43,7 +44,7 @@ public class CategoryController {
     )
     public Category addNewCategory(@Valid @RequestBody Category category, Errors errors) {
         if(errors.hasErrors()) {
-            throw new NotFoundException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
+            throw new NotAcceptableException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
         }
 
         return categoryService.addCategory(category);
@@ -56,8 +57,9 @@ public class CategoryController {
     )
     public Category updateCategoryById(@PathVariable("categoryId") int categoryId, @RequestBody Category category, Errors errors) {
         if(errors.hasErrors()) {
-            throw new NotFoundException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
+            throw new NotAcceptableException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
         }
+
         category.setId(categoryId);
         return categoryService.updateCategory(category);
     }

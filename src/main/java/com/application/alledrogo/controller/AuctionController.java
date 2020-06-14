@@ -1,9 +1,11 @@
 package com.application.alledrogo.controller;
 
+import com.application.alledrogo.exception.NotAcceptableException;
 import com.application.alledrogo.model.Auction;
 import com.application.alledrogo.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -87,7 +89,11 @@ public class AuctionController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Auction addAuction(@RequestBody Auction auction) {
+    public Auction addAuction(@RequestBody Auction auction, Errors errors) {
+        if(errors.hasErrors()) {
+            throw new NotAcceptableException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
+        }
+
         return auctionService.addAuction(auction);
     }
 
@@ -124,7 +130,11 @@ public class AuctionController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Auction editAuctionById(@PathVariable("auctionId") int id, @RequestBody Auction auction) {
+    public Auction editAuctionById(@PathVariable("auctionId") int id, @RequestBody Auction auction, Errors errors) {
+        if(errors.hasErrors()) {
+            throw new NotAcceptableException(errors.getFieldError().getField()+" "+errors.getFieldError().getDefaultMessage());
+        }
+
         auction.setId(id);
         return auctionService.updateAuction(auction);
     }
